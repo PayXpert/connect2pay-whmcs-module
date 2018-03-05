@@ -78,6 +78,8 @@ function payxpert_link($params) {
   
 	$c2pClient->setOrderDescription( $params["description"] );
 	$c2pClient->setCurrency( $params['currency'] );
+
+  $callback = $params['systemurl'] . '/modules/gateways/callback/payxpert.php';
 	
 	$c2pClient->setShopperFirstName( html_entity_decode($params['clientdetails']['firstname'], ENT_QUOTES, 'UTF-8') );
 	$c2pClient->setShopperLastName( html_entity_decode($params['clientdetails']['lastname'], ENT_QUOTES, 'UTF-8') );
@@ -87,9 +89,9 @@ function payxpert_link($params) {
 	$c2pClient->setShopperState( html_entity_decode($params['clientdetails']['state'], ENT_QUOTES, 'UTF-8') );
 	$c2pClient->setShopperCountryCode( $params['clientdetails']['countrycode'] );
 	$c2pClient->setShopperPhone( html_entity_decode($params['clientdetails']['phonenumber'], ENT_QUOTES, 'UTF-8') );
-	$c2pClient->setShopperEmail("heitor.dolinski@payxpert.com"); //(html_entity_decode($params['clientdetails']['email'], ENT_QUOTES, 'UTF-8') );
-	$c2pClient->setCtrlRedirectURL( $params['systemurl'] . '/modules/gateways/callback/payxpert.php' );
-	$c2pClient->setCtrlCallbackURL( "https://developers.payxpert.com/" );
+	$c2pClient->setShopperEmail(html_entity_decode($params['clientdetails']['email'], ENT_QUOTES, 'UTF-8') );
+	$c2pClient->setCtrlRedirectURL( $callback );
+	$c2pClient->setCtrlCallbackURL( $callback );
 	if (!empty($params['3dsecure'])) {
 		$c2pClient->setSecure3d(true);
 	}
